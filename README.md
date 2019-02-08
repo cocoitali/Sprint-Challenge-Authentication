@@ -29,25 +29,39 @@ Implement an User Authentication System in order to access the jokes from the Jo
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 1. What is the purpose of using _sessions_?
+
+Gives a user a pre-decided amount of time they are logged in so they don't have to login each time they make a different request. Cookies are used to store the user information to be passed between server and client.
+
 1. What does bcrypt do to help us store passwords in a secure manner.
+
+In short, bcrypt salts hashed passwords. This comes out of the box. It generates the salt first, then hashes the password.
+
+First it defines the bcript algorithm used, then the number of times a password is rehashed and lastly the salt. All three fields are concatenated together, separated by a $. If I went into detail about how exactly the salt is encoded, I'd be borrowing heavily from a source. So there's a lot I don't have memorized yet, however, I get the gist of what bcrypt is used for.   
+
 1. What does bcrypt do to slow down attackers?
+
+It hashes the password multiple rounds. This slows down or deters hackers from compiling the hashes into what's called a Rainbow Table that they can refer to whenever the get a hold of passwords. I believe the default for bcryptjs is 2^10 rounds, but I've learned that 12 is a good number that still allows users to login in shortish amount of time.
+
 1. What are the three parts of the JSON Web Token?
+
+Header, Payload, Signature 
+
 
 ## Project Set Up
 
 Follow these steps to set up and work on your project:
 
-- [ ] Create a forked copy of this project.
-- [ ] Add PM as collaborator on Github.
-- [ ] Clone your OWN version of Repo (Not Lambda's by mistake!).
-- [ ] Create a new Branch on the clone: git checkout -b `<firstName-lastName>`.
-- [ ] Implement the project on this Branch, committing changes regularly.
-- [ ] Push commits: git push origin `<firstName-lastName>`.
+- [x] Create a forked copy of this project.
+- [x] Add PM as collaborator on Github.
+- [x] Clone your OWN version of Repo (Not Lambda's by mistake!).
+- [x] Create a new Branch on the clone: git checkout -b `<firstName-lastName>`.
+- [x] Implement the project on this Branch, committing changes regularly.
+- [x] Push commits: git push origin `<firstName-lastName>`.
 
 Follow these steps for completing your project:
 
-- [ ] `cd` into the root of the project and run `yarn` to install dependencies.
-- [ ] Once you have your `node_modules` go ahead and run `yarn server` or `npm run server` to start your node server.
+- [x] `cd` into the root of the project and run `yarn` to install dependencies.
+- [x] Once you have your `node_modules` go ahead and run `yarn server` or `npm run server` to start your node server.
 - [ ] Submit a Pull-Request to merge <firstName-lastName> Branch into master (student's  Repo).
 - [ ] Add your Project Manager as a Reviewer on the Pull-request
 - [ ] PM then will count the HW as done by  merging the branch back into master.
