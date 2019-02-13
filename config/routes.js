@@ -11,19 +11,37 @@ module.exports = server => {
 	server.get('/api/jokes', authenticate, getJokes)
 }
 
+//FIX*******needs to error when one field or another is missing on registration
+//as of right now, theres an error on my end if you try to register a user w/o a passord, however if you try to register with only a password, I get a 500 unable to register user
 function register(req, res) {
-	// implement user registration
-	const creds = req.body
-	const hash = bcrypt.hashSync(creds.password, 14)
-	creds.password = hash
-	db('users')
-		.insert(creds)
-		.then(id => {
-			res.status(201).json(id)
+	const user = req.body
+	if (
+		!user.username ||
+		typeof user.username !== 'string' ||
+		user.username === ''
+	) {
+		res.status(400).json({ message: 'Username must be a valued string.' })
+	} else if (
+		!user.password ||
+		typeof user.password !== 'string' ||
+		user.password === ''
+	) {
+		res.status(400).json({
+			message: 'Password must be a valued string.'
 		})
-		.catch(() => {
-			res.status(500).json({ error: 'Unable to register user.' })
-		})
+	} else {
+		const creds = req.body
+		const hash = bcrypt.hashSync(creds.password, 14)
+		creds.password = hash
+		db('users')
+			.insert(creds)
+			.then(id => {
+				res.status(201).json(id)
+			})
+			.catch(() => {
+				res.status(500).json({ error: 'Unable to register user.' })
+			})
+	}
 }
 
 function generateToken(user) {
@@ -40,7 +58,6 @@ function generateToken(user) {
 }
 
 function login(req, res) {
-	// implement user login
 	const creds = req.body
 	db('users')
 		.where({ username: creds.username })
